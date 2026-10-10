@@ -2,9 +2,12 @@ import json
 import base64
 import secrets
 
+
 from .cryptography import encrypt, decrypt
 from .key_derivation import derive_key
 from .storage import save_vault, load_vault
+from cryptography.exceptions import InvalidTag
+from .exceptions import VaultUnlockError
 
 class VaultSession:
     def __init__(self, vault_data, key):
@@ -64,7 +67,12 @@ def unlock_vault(password):
     vault_file=load_vault()
     salt,nonce,ciphertext=parse_vault_data(vault_file)
     key=derive_key(password,salt)
-    vault_data=decrypt_vault(ciphertext,nonce,key)
+    
+    try:
+        vault_data=decrypt_vault(ciphertext,nonce,key)
+    except(InvalidTag) as exc:
+        raise VaultUnlockError("Unable To unlock Vault") from exc
+    
     return VaultSession(vault_data, key)
 
 
