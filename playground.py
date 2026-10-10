@@ -1,11 +1,10 @@
-from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-import secrets
-nonce=secrets.token_bytes(12)
-key=secrets.token_bytes(32)
-print(key)
-aes=AESGCM(key)
-data="hello".encode()
-cipher=aes.encrypt(nonce,data,None)
-plain=aes.decrypt(nonce,cipher,None)
-plaintext=plain.decode()
-print(plaintext)
+import password_manager.vault as pmv
+
+test_password = "test-master-password"
+
+pmv.create_vault(test_password)
+session = pmv.unlock_vault(test_password)
+
+print(type(session))
+print(session.vault_data)
+print(len(session.key))
