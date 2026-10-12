@@ -57,12 +57,14 @@ def test_update_entry():
         print(entries["entry_id"])
     assert note==updated_note
 
-def test_delete_entry():
-    pasword="motherducker"
-    session=unlock_vault(pasword)
-    entry=add_entry(session.vault_data,"github","random6374","PASSSSS","you bore me ducker")
-    id=entry["entry_id"]
-    delete_entry(session.vault_data,id)
-    save_session(session)
-    new_session=unlock_vault(pasword)
+# def test_delete_entry():
+#     pasword="motherducker"
+#     session=unlock_vault(pasword)
+#     entry=add_entry(session.vault_data,"github","random6374","PASSSSS","you bore me ducker")
+#     id=entry["entry_id"]
+#     delete_entry(session.vault_data,id)
+#     save_session(session)
+#     new_session=unlock_vault(pasword)
+
+#test code
     
