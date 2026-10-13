@@ -78,6 +78,8 @@ def unlock_vault(password):
 
 def add_entry(vault_data, website, username, password, notes):
     entry_id=secrets.token_hex(16)
+    if website.strip()=="" or username.strip()=="" or password.strip()=="":
+        raise ValueError("website,username or password field cannot be empty")
     
     entry={
 

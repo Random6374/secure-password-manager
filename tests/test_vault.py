@@ -1,7 +1,7 @@
 import pytest
 from password_manager.vault import unlock_vault,save_vault
 from password_manager.exceptions import VaultUnlockError
-from password_manager.vault import create_vault, unlock_vault,add_entry,save_session,update_entry,delete_entry
+from password_manager.vault import create_vault, unlock_vault,add_entry,save_session,update_entry,delete_entry,get_entry
 
 def test_unlock_wrong_password():
     vault_data = {
@@ -67,4 +67,42 @@ def test_delete_entry():
     new_session=unlock_vault(pasword)
     assert not any(entries["entry_id"] == id for entries in new_session.vault_data["entries"])
 
+def test_add_entry_empty_website():
+    pasword="motherducker"
+    session=unlock_vault(pasword)
     
+    with pytest.raises(ValueError):
+        entry=add_entry(session.vault_data,"","random6374","PASSSSS","you bore me ducker")
+
+
+def test_get_entry():
+    pasword="motherducker"
+    session=unlock_vault(pasword)
+    made_dict=add_entry(session.vault_data,"github","random6374","PASSSSS","you bore me ducker")
+    id=made_dict["entry_id"]
+    fetheced_dict=get_entry(session.vault_data,id)
+    assert made_dict==fetheced_dict
+
+def test_get_entry_nonexistent_id():
+    pasword="motherducker"
+    session=unlock_vault(pasword)
+    id=""
+    fetch=get_entry(session.vault_data,id)
+    assert fetch is None
+
+
+def test_delete_entry_nonexistent_id():
+    pasword="motherducker"
+    session=unlock_vault(pasword)
+    id=""
+    delt=delete_entry(session.vault_data,id)
+
+    assert delt is None
+
+def test_update_entry_nonexistent_id():
+    pasword="motherducker"
+    session=unlock_vault(pasword)
+    id=""
+    delt=update_entry(session.vault_data,id,website="website")
+    
+    assert delt is None
