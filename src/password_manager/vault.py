@@ -137,3 +137,13 @@ def save_session(session):
     salt,_,_=parse_vault_data(load_vault())
     ciphertext,nonce=encrypt_vault(session.vault_data,session.key)
     save_vault(create_vault_file_data(salt,nonce,ciphertext))
+
+def list_entries(vault_data):
+    summaries=[]
+    for entry in vault_data["entries"]:
+        mini_list={}
+        mini_list["entry_id"]=entry["entry_id"]
+        mini_list["website"]=entry["website"]
+        mini_list["username"]=entry["username"]
+        list.append(mini_list)
+    return summaries
