@@ -410,25 +410,89 @@ ApplicationWindow {
     }
 
     Dialog {
-        id: settingsDialog; modal: true; anchors.centerIn: parent; title: "Settings"; standardButtons: Dialog.Ok
+        id: settingsDialog
+        width: 400
+        modal: true
+        anchors.centerIn: parent
+        title: "Settings"
+        standardButtons: Dialog.Ok
         background: Rectangle { color: panel; radius: 14; border.color: line }
-        contentItem: Text { text: "Frontend prototype. Connect storage, auto-lock, and security settings through Python."; color: ink; wrapMode: Text.WordWrap }
+        contentItem: Item {
+            implicitWidth: 360
+            implicitHeight: settingsMessage.implicitHeight + 16
+            Text {
+                id: settingsMessage
+                anchors.fill: parent
+                anchors.margins: 8
+                text: "Frontend prototype. Connect storage, auto-lock, and security settings through Python."
+                color: ink
+                wrapMode: Text.WordWrap
+            }
+        }
     }
     Dialog {
-        id: lockDialog; modal: true; anchors.centerIn: parent; title: "Lock Vault"; standardButtons: Dialog.Yes | Dialog.No
+        id: lockDialog
+        width: 400
+        modal: true
+        anchors.centerIn: parent
+        title: "Lock Vault"
+        standardButtons: Dialog.Yes | Dialog.No
         background: Rectangle { color: panel; radius: 14; border.color: line }
-        contentItem: Text { text: "Locking is not connected in this UI prototype yet."; color: ink; wrapMode: Text.WordWrap }
+        contentItem: Item {
+            implicitWidth: 360
+            implicitHeight: lockMessage.implicitHeight + 16
+            Text {
+                id: lockMessage
+                anchors.fill: parent
+                anchors.margins: 8
+                text: "Locking is not connected in this UI prototype yet."
+                color: ink
+                wrapMode: Text.WordWrap
+            }
+        }
     }
     Dialog {
-        id: deleteDialog; modal: true; anchors.centerIn: parent; title: "Delete Entry"; standardButtons: Dialog.Yes | Dialog.No
+        id: deleteDialog
+        width: 400
+        modal: true
+        anchors.centerIn: parent
+        title: "Delete Entry"
+        standardButtons: Dialog.Yes | Dialog.No
         background: Rectangle { color: panel; radius: 14; border.color: line }
-        contentItem: Text { text: "Delete this entry from the in-memory demo list?"; color: ink }
+        contentItem: Item {
+            implicitWidth: 360
+            implicitHeight: deleteMessage.implicitHeight + 16
+            Text {
+                id: deleteMessage
+                anchors.fill: parent
+                anchors.margins: 8
+                text: "Delete this entry from the in-memory demo list?"
+                color: ink
+                wrapMode: Text.WordWrap
+            }
+        }
         onAccepted: { if (selected >= 0 && selected < vaultEntries.count) { vaultEntries.remove(selected); selected = Math.min(selected, vaultEntries.count - 1) } }
     }
     Dialog {
-        id: validationDialog; modal: true; anchors.centerIn: parent; title: "Required fields"; standardButtons: Dialog.Ok
+        id: validationDialog
+        width: 400
+        modal: true
+        anchors.centerIn: parent
+        title: "Required fields"
+        standardButtons: Dialog.Ok
         background: Rectangle { color: panel; radius: 14; border.color: line }
-        contentItem: Text { text: "Service, username, and password are required."; color: ink }
+        contentItem: Item {
+            implicitWidth: 360
+            implicitHeight: validationMessage.implicitHeight + 16
+            Text {
+                id: validationMessage
+                anchors.fill: parent
+                anchors.margins: 8
+                text: "Service, username, and password are required."
+                color: ink
+                wrapMode: Text.WordWrap
+            }
+        }
     }
     Dialog {
         id: noticeDialog; property string message: ""; modal: true; anchors.centerIn: parent; title: "Integration placeholder"; standardButtons: Dialog.Ok
