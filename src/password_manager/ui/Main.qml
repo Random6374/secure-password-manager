@@ -112,6 +112,14 @@ ApplicationWindow {
                         }
                     }
                 }
+                 Button {
+                    text: "Test Python Connection"
+                    Layout.fillWidth: true
+
+                    onClicked: {
+                        backend.testConnection()
+                    }
+                }
                 Item { Layout.fillHeight: true }
                 Rectangle {
                     Layout.fillWidth: true; height: 52; radius: 11

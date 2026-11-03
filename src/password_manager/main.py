@@ -4,6 +4,7 @@ from pathlib import Path
 from PySide6.QtGui import QGuiApplication
 from PySide6.QtQml import QQmlApplicationEngine
 from PySide6.QtQuickControls2 import QQuickStyle
+from password_manager.controller import VaultController
 
 
 def main():
@@ -13,6 +14,8 @@ def main():
     app.setApplicationName("Vault Password Manager")
 
     engine = QQmlApplicationEngine()
+    controller=VaultController()
+    engine.rootContext().setContextProperty("backend", controller)
     engine.load(Path(__file__).parent / "ui" / "Main.qml")
 
     if not engine.rootObjects():
